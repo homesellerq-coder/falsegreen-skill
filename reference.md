@@ -1394,6 +1394,10 @@ real check, so the whole run can pass while protecting nothing. The static scann
 only in `--config-audit` mode (reading pytest/jest/vitest/robot run config), never in the per-file
 scan. Listed here so the skill catalog is a true superset of the scanners.
 
+- **Asserts stripped by -O (J1, PL1, Python):** `python -O`/`-OO` or `PYTHONOPTIMIZE=1` in the run
+  config (tox.ini `commands`, pytest `addopts`, `[tool:pytest]`) strips every `assert`, so the
+  suite goes green without checking anything. The static scanner flags only this config-discoverable
+  slice (a project-level WARNING, never blocks); the runtime form is out of a per-file scan's reach.
 - **No coverage gate (J5, PL7):** no `--cov-fail-under` / `[tool.coverage.report] fail_under`
   (Python), `coverageThreshold` (Jest) or `coverage.thresholds` (Vitest). Coverage can fall to
   zero and the suite still passes. Set a coverage floor.
